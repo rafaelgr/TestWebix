@@ -1,4 +1,6 @@
 import { JetView, plugins } from "webix-jet";
+import mainMenu from "views/mainMenu";
+import mainToolBar from "views/mainToolbar";
 
 const menudata = [
 	{
@@ -29,29 +31,6 @@ const menudata = [
 
 export default class TopView extends JetView {
 	config() {
-
-		var mainToolBar = {
-			view: "toolbar",
-			height: 50,
-			elements: [
-				{
-					view: "button", type: "icon", icon: "bars", width: 37, align: "left",
-					click: function () {
-						$$("main:menu").toggle();
-					}
-				}
-			]
-
-		};
-
-		var mainMenu = {
-			view: "sidebar",
-			width: 200,
-			id: "main:menu",
-			activeTitle: true, select: true,
-			data: menudata
-		}
-
 		var mainBody = {
 			$subview: true
 		};
@@ -76,7 +55,7 @@ export default class TopView extends JetView {
 		return ui;
 	}
 	init() {
-		this.use(plugins.Menu, "main:menu");
+		
 	}
 }
 

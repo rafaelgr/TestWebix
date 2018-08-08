@@ -8,7 +8,7 @@ export default class MyApp extends JetApp{
 			router 	: BUILD_AS_MODULE ? EmptyRouter : HashRouter,
 			debug 	: !PRODUCTION,
 			start 	: "/top2/start",
-			name : "TEMPLATE APP"
+			name : "ARIADNA WEBIX TEMPLATE"
 		};
 
 		super({ ...defaults, ...config });
