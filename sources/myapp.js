@@ -1,4 +1,4 @@
-import {JetApp, EmptyRouter, HashRouter } from "webix-jet";
+import {JetApp, EmptyRouter, HashRouter, plugins } from "webix-jet";
 
 export default class MyApp extends JetApp{
 	constructor(config){
@@ -16,5 +16,10 @@ export default class MyApp extends JetApp{
 }
 
 if (!BUILD_AS_MODULE){
-	webix.ready(() => new MyApp().render() );
+
+	webix.ready(() =>  {
+		var app = new MyApp();
+		app.use(plugins.Locale);
+		app.render();
+	} );
 }
