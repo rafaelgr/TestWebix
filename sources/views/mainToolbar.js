@@ -3,6 +3,7 @@ import { JetView, plugins } from "webix-jet";
 export default class MainToolbar extends JetView {
     config() {
 		const langs = this.app.getService("locale");
+		const themes = this.app.getService("theme");
 		var mainToolBar = {
 			view: "toolbar",
 			height: 50,
@@ -22,6 +23,13 @@ export default class MainToolbar extends JetView {
 					click: () => {
 						alert('Jejeje');
 						langs.setLang('es');
+					}
+				},
+				{
+					view: "button", type: "icon", icon: "home", width: 37, align: "right",
+					click: () => {
+						alert('Jejeje');
+						themes.setTheme('compact');
 					}
 				}
 			]
