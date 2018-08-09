@@ -9,7 +9,32 @@ export default class DataView extends JetView {
 		var datatableView = {
 			view: "datatable",
 			id: "data:datatable",
-			autoConfig: true,
+			columns: [
+				{ id: "id", adjust: true, header: "ID" },
+				{ id: "title", fillspace: true, header: "Title", editor: "text" },
+				{ id: "year", header: "Year", editor: "text" },
+				{
+					id: "votes", header: { text: "Votes", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
+					format: webix.Number.numToStr({
+						groupDelimiter: ".",
+						groupSize: 3
+					})
+				},
+				{
+					id: "rating", header:{ text: "Rating", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
+					format: webix.Number.numToStr({
+						groupDelimiter: ".",
+						groupSize: 3,
+						decimalDelimiter: ",",
+						decimalSize: 2
+					})
+				},
+				{
+					id:"date", header:{ text: "Date", css: { "text-align": "center" } }, editor: "text",
+					format:webix.Date.dateToStr("%d/%m/%Y")
+				}
+
+			],
 			editable: true,
 			on: {
 				"onAfterEditStart": function (id) {
