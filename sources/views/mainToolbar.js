@@ -4,6 +4,7 @@ export default class MainToolbar extends JetView {
     config() {
 		const langs = this.app.getService("locale");
 		const themes = this.app.getService("theme");
+		console.log("Before maiToolbar config");
 		var mainToolBar = {
 			view: "toolbar",
 			height: 50,
@@ -21,20 +22,19 @@ export default class MainToolbar extends JetView {
 				{
 					view: "button", type: "icon", icon: "bell", width: 37, align: "right",
 					click: () => {
-						alert('Jejeje');
 						langs.setLang('es');
 					}
 				},
 				{
 					view: "button", type: "icon", icon: "home", width: 37, align: "right",
 					click: () => {
-						alert('Jejeje');
 						themes.setTheme('compact');
 					}
 				}
 			]
 
-        };
+		};
+		console.log("After myToolbar config");
         return mainToolBar;
     }
     init() {
