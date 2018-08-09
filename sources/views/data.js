@@ -57,7 +57,7 @@ export default class DataView extends JetView {
 					format: webix.i18n.numberFormat
 				},
 				{
-					id: "date", header: { text: "Date2", css: { "text-align": "center" } }, editor: "text",
+					id: "date", header: { text: "Date2", css: { "text-align": "center" } }, editor: "date",
 					format: webix.i18n.dateFormatStr
 				}
 
