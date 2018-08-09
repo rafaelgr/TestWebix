@@ -4,7 +4,6 @@ export default class MainToolbar extends JetView {
     config() {
 		const langs = this.app.getService("locale");
 		const themes = this.app.getService("theme");
-		console.log("Before maiToolbar config");
 		var mainToolBar = {
 			view: "toolbar",
 			height: 50,
@@ -34,7 +33,6 @@ export default class MainToolbar extends JetView {
 			]
 
 		};
-		console.log("After myToolbar config");
         return mainToolBar;
     }
     init() {
