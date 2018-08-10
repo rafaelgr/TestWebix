@@ -102,10 +102,10 @@ export default class DataView extends JetView {
 			pager: "mypager",
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
-				{ id: "title", fillspace: true, header: "Title", editor: "text" },
+				{ id: "title", fillspace: true, header: ["Title", {content:"textFilter"}], editor: "text" },
 				{ id: "year", header: "Year", editor: "text" },
 				{
-					id: "votes", header: { text: "Votes", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
+					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, {content:"numberFilter"}], editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.priceFormat
 				},
 				{
@@ -113,7 +113,7 @@ export default class DataView extends JetView {
 					format: webix.i18n.numberFormat
 				},
 				{
-					id: "date", header: { text: "From Date", css: { "text-align": "center" } }, editor: "editdate", width: 150,
+					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, {content:"dateFilter"}], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr
 				},
 				{
