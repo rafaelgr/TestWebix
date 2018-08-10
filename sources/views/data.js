@@ -99,6 +99,7 @@ export default class DataView extends JetView {
 		var datatableView = {
 			view: "datatable",
 			id: "data:datatable",
+			pager: "mypager",
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
 				{ id: "title", fillspace: true, header: "Title", editor: "text" },
@@ -122,6 +123,7 @@ export default class DataView extends JetView {
 
 			],
 			editable: true,
+			editaction: "dblclick",
 			rules: {
 				"title": webix.rules.isNotEmpty,
 				"votes": webix.rules.isNumber,
@@ -155,36 +157,41 @@ export default class DataView extends JetView {
 		};
 		var dataToolbar = {
 			view: "toolbar",
-			height: 50,
+			height: 30,
 			elements: [
 				{
 					view: "button", type: "icon", icon: "plus", width: 37, align: "right",
 					click: () => {
-						var newRow = {id: -1};
+						webix.message("Not implemented yet");
+					}
+				},
+				{
+					view: "button", type: "icon", icon: "plus-square", width: 37, align: "right",
+					click: () => {
+						var newRow = { id: -1 };
 						$$("data:datatable").add(newRow, 0);
 					}
 				},
 				{
-					view: "button", type: "icon", icon: "recycle", width: 37, align: "right",
-					click: () => {
-						this.render();
-					}
+					view: "label",
+					label: "A datatable exemple with inline editing"
 				}
 			]
 		};
 		return {
 			rows: [
 				dataToolbar,
+				{view:"pager", size:3, id:"mypager"}, 
 				datatableView
 			]
 		};
 	}
 	init(view) {
 		$$("data:datatable").parse(data);
-		webix.UIManager.addHotKey("Esc", function() { 
+		webix.UIManager.addHotKey("Esc", function () {
 			console.log("Esc key to remove");
 			$$('data:datatable').remove(-1);
-			return false; 
+			return false;
 		}, $$('data:datatable'));
 	}
 }
