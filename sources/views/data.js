@@ -157,31 +157,42 @@ export default class DataView extends JetView {
 		};
 		var dataToolbar = {
 			view: "toolbar",
-			height: 30,
+			height: 50,
 			elements: [
-				{
-					view: "button", type: "icon", icon: "plus", width: 37, align: "right",
-					click: () => {
-						webix.message("Not implemented yet");
-					}
-				},
-				{
-					view: "button", type: "icon", icon: "plus-square", width: 37, align: "right",
-					click: () => {
-						var newRow = { id: -1 };
-						$$("data:datatable").add(newRow, 0);
-					}
-				},
 				{
 					view: "label",
 					label: "A datatable exemple with inline editing"
 				}
 			]
 		};
+		var pagerView =  {
+			cols: [
+				{
+					view: "button", type: "icon", icon: "plus", width: 37, align: "left",
+					click: () => {
+						webix.message("Not implemented yet");
+					}
+				},
+				{
+					view: "button", type: "icon", icon: "plus-square", width: 37, align: "left",
+					click: () => {
+						var newRow = { id: -1 };
+						$$("data:datatable").add(newRow, 0);
+					}
+				},
+				{},
+				{
+					view: "pager", id: "mypager", css: { "text-align": "right" },
+					template: "{common.first()} {common.prev()} {common.pages()} {common.next()} {common.last()}",
+					size: 25,
+					group: 5
+				}
+			]
+		};
 		return {
 			rows: [
 				dataToolbar,
-				{view:"pager", size:3, id:"mypager"}, 
+				pagerView,
 				datatableView
 			]
 		};
