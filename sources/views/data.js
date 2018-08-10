@@ -64,6 +64,7 @@ var dateControl = (value) => {
 	return webix.rules.isNotEmpty(value);
 }
 var semaphore = false; // controls whether a validation function is called from rules or validate
+
 var rankingControl = (v) => {
 	if (!webix.rules.isNumber(v)) return false;
 	if (v < 0 || v > 10) {
@@ -80,6 +81,21 @@ var rankingControl = (v) => {
 	return true;
 }
 
+var multiColumnControl = (obj) => {
+	if (semaphore) {
+		if (obj.date > obj.date2) {
+			webix.message({
+				type: "error",
+				text: "To Date must be greater then From Date"
+			});
+			semaphore = false;
+			return false;
+		}
+	}
+	semaphore = false;
+	return true;
+}
+
 export default class DataView extends JetView {
 	config() {
 		var datatableView = {
@@ -90,15 +106,19 @@ export default class DataView extends JetView {
 				{ id: "title", fillspace: true, header: "Title", editor: "text" },
 				{ id: "year", header: "Year", editor: "text" },
 				{
-					id: "votes", header: { text: "Votes2", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
+					id: "votes", header: { text: "Votes", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.priceFormat
 				},
 				{
-					id: "rating", header: { text: "Rating2", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
+					id: "rating", header: { text: "Rating", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.numberFormat
 				},
 				{
-					id: "date", header: { text: "Date2", css: { "text-align": "center" } }, editor: "editdate", width: 150,
+					id: "date", header: { text: "From Date", css: { "text-align": "center" } }, editor: "editdate", width: 150,
+					format: webix.i18n.dateFormatStr
+				},
+				{
+					id: "date2", header: { text: "To Date", css: { "text-align": "center" } }, editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr
 				}
 
@@ -108,7 +128,10 @@ export default class DataView extends JetView {
 				"title": webix.rules.isNotEmpty,
 				"votes": webix.rules.isNumber,
 				"date": dateControl,
-				"rating": rankingControl
+				"date2": dateControl,
+				"rating": rankingControl,
+				$obj: multiColumnControl
+
 			},
 			on: {
 				"onAfterEditStart": function (id) {
