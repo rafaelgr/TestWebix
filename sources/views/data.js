@@ -160,7 +160,14 @@ export default class DataView extends JetView {
 				{
 					view: "button", type: "icon", icon: "plus", width: 37, align: "right",
 					click: () => {
-						webix.message("New record");
+						var newRow = {id: -1};
+						$$("data:datatable").add(newRow, 0);
+					}
+				},
+				{
+					view: "button", type: "icon", icon: "recycle", width: 37, align: "right",
+					click: () => {
+						this.render();
 					}
 				}
 			]
@@ -174,5 +181,10 @@ export default class DataView extends JetView {
 	}
 	init(view) {
 		$$("data:datatable").parse(data);
+		webix.UIManager.addHotKey("Esc", function() { 
+			console.log("Esc key to remove");
+			$$('data:datatable').remove(-1);
+			return false; 
+		}, $$('data:datatable'));
 	}
 }
