@@ -2,8 +2,9 @@ import { JetView, plugins } from "webix-jet";
 
 export default class MainToolbar extends JetView {
     config() {
-		const langs = this.app.getService("locale");
-		const themes = this.app.getService("theme");
+		var app = this.app;
+		const langs = app.getService("locale");
+		const themes = app.getService("theme");
 		var mainToolBar = {
 			view: "toolbar",
 			height: 50,
@@ -21,20 +22,18 @@ export default class MainToolbar extends JetView {
 				{
 					view: "button", type: "icon", icon: "bell", width: 37, align: "right",
 					click: () => {
-						alert('Jejeje');
-						langs.setLang('es');
+						langs.setLang('es-ES');
 					}
 				},
 				{
 					view: "button", type: "icon", icon: "home", width: 37, align: "right",
 					click: () => {
-						alert('Jejeje');
 						themes.setTheme('compact');
 					}
 				}
 			]
 
-        };
+		};
         return mainToolBar;
     }
     init() {
