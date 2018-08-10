@@ -39,6 +39,27 @@ webix.i18n.locales["es-ES"] = {   //"es-ES" - the locale name, the same as the f
 };
 webix.i18n.setLocale("es-ES");
 
+webix.editors.editdate = webix.extend({
+	render:function(){
+	var icon = "<span class='webix_icon fa-calendar' style='position:absolute; cursor:pointer; top:8px; right:5px;'></span>";
+	var node = webix.html.create("div", {
+		  "class":"webix_dt_editor"
+	  }, "<input type='date'>"+icon);
+	
+	node.childNodes[1].onclick = function(){
+	  var master = webix.UIManager.getFocus();
+	  var editor = master.getEditor();
+	  
+	  master.editStop(false);
+	  var config = master.getColumnConfig(editor.column);
+	  config.editor = "date";
+	  master.editCell(editor.row, editor.column);
+	  config.editor = "editdate";
+	}
+	return node;
+  }
+}, webix.editors.text);
+
 export default class DataView extends JetView {
 	config() {
 		var datatableView = {
@@ -57,7 +78,7 @@ export default class DataView extends JetView {
 					format: webix.i18n.numberFormat
 				},
 				{
-					id: "date", header: { text: "Date2", css: { "text-align": "center" } }, editor: "date",
+					id: "date", header: { text: "Date2", css: { "text-align": "center" } }, editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr
 				}
 
