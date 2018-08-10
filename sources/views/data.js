@@ -67,34 +67,32 @@ var semaphore = false; // controls whether a validation function is called from 
 
 var rankingControl = (v) => {
 	if (!webix.rules.isNumber(v)) return false;
-	if (v < 0 || v > 10) {
-		if (semaphore) {
-			webix.message({
-				type: "error",
-				text: "Rating must be between 0 and 10"
-			});
-			semaphore = false;
-		}
-		return false;
-	}
 	semaphore = false;
 	return true;
 }
 
 var multiColumnControl = (obj) => {
+	var correct = true;
 	if (semaphore) {
 		if (obj.date > obj.date2) {
 			webix.message({
 				type: "error",
 				text: "To Date must be greater then From Date"
 			});
-			semaphore = false;
-			return false;
+			correct = false;
+		}
+		if (obj.rating < 0 || obj.rating > 10) {
+			webix.message({
+				type: "error",
+				text: "Rating must be between 0 and 10"
+			});
+			correct = false;
 		}
 	}
 	semaphore = false;
-	return true;
+	return correct;
 }
+
 
 export default class DataView extends JetView {
 	config() {
@@ -155,9 +153,26 @@ export default class DataView extends JetView {
 			}
 
 		};
-		return datatableView;
+		var dataToolbar = {
+			view: "toolbar",
+			height: 50,
+			elements: [
+				{
+					view: "button", type: "icon", icon: "plus", width: 37, align: "right",
+					click: () => {
+						webix.message("New record");
+					}
+				}
+			]
+		};
+		return {
+			rows: [
+				dataToolbar,
+				datatableView
+			]
+		};
 	}
 	init(view) {
-		view.parse(data);
+		$$("data:datatable").parse(data);
 	}
 }
