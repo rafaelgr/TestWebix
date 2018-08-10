@@ -2,7 +2,7 @@ import { JetView, plugins } from "webix-jet";
 
 export default class MainToolbar extends JetView {
     config() {
-		const langs = this.app.getService("locale");
+		const langs = this.app.getService("locale");s
 		const themes = this.app.getService("theme");
 		var mainToolBar = {
 			view: "toolbar",
