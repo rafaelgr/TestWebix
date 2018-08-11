@@ -102,23 +102,23 @@ export default class DataView extends JetView {
 			pager: "mypager",
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
-				{ id: "title", fillspace: true, header: ["Title", { content: "textFilter" }], editor: "text" },
-				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text" },
+				{ id: "title", fillspace: true, header: ["Title", { content: "textFilter" }], editor: "text", sort: "string" },
+				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text", sort:"int" },
 				{
 					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
-					format: webix.i18n.priceFormat
+					format: webix.i18n.priceFormat, sort: "int"
 				},
 				{
-					id: "rating", header: { text: "Rating", css: { "text-align": "right" } }, editor: "text", css: { "text-align": "right" },
-					format: webix.i18n.numberFormat
+					id: "rating", header: [{ text: "Rating", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
+					format: webix.i18n.numberFormat, sort:"int" 
 				},
 				{
 					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
-					format: webix.i18n.dateFormatStr
+					format: webix.i18n.dateFormatStr, sort: "string"
 				},
 				{
-					id: "date2", header: { text: "To Date", css: { "text-align": "center" } }, editor: "editdate", width: 150,
-					format: webix.i18n.dateFormatStr
+					id: "date2", header: [{ text: "To Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
+					format: webix.i18n.dateFormatStr, sort: "string"
 				}
 
 			],
