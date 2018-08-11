@@ -102,10 +102,10 @@ export default class DataView extends JetView {
 			pager: "mypager",
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
-				{ id: "title", fillspace: true, header: ["Title", {content:"textFilter"}], editor: "text" },
-				{ id: "year", header: "Year", editor: "text" },
+				{ id: "title", fillspace: true, header: ["Title", { content: "textFilter" }], editor: "text" },
+				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text" },
 				{
-					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, {content:"numberFilter"}], editor: "text", css: { "text-align": "right" },
+					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.priceFormat
 				},
 				{
@@ -113,7 +113,7 @@ export default class DataView extends JetView {
 					format: webix.i18n.numberFormat
 				},
 				{
-					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, {content:"dateFilter"}], editor: "editdate", width: 150,
+					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr
 				},
 				{
@@ -165,7 +165,7 @@ export default class DataView extends JetView {
 				}
 			]
 		};
-		var pagerView =  {
+		var pagerView = {
 			cols: [
 				{
 					view: "button", type: "icon", icon: "plus", width: 37, align: "left",
@@ -198,6 +198,12 @@ export default class DataView extends JetView {
 		};
 	}
 	init(view) {
+		var data2 = [];
+		for (var i = 1; i < data.length; i++) {
+			r = data[i];
+			r.date = new Date(r.date);
+			data2.push(r);
+		}
 		$$("data:datatable").parse(data);
 		webix.UIManager.addHotKey("Esc", function () {
 			console.log("Esc key to remove");
