@@ -140,7 +140,7 @@ export default class DataView extends JetView {
 					id: "date2", header: [{ text: trans("To Date"), css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr, sort: "string"
 				},
-				{ id: "ACTIONS", header: [{ text: trans("Actions"), css: { "text-align": "center" } }], template: user + cog, css: { "text-align": "center" } }
+				{ id: "actions", header: [{ text: trans("Actions"), css: { "text-align": "center" } }], template: user + cog, css: { "text-align": "center" } }
 
 			],
 			onClick: {
@@ -236,7 +236,8 @@ export default class DataView extends JetView {
 						webix.toExcel($$("data:datatable"),{
 							filename: "table",
 							name: "Films",
-							rawValues:true
+							rawValues:true,
+							ignore: {"actions": true}
 						  });
 					}
 				},
