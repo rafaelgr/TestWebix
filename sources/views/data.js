@@ -1,5 +1,5 @@
 import { JetView } from "webix-jet";
-import { data } from "models/records";
+import { data, catOptions } from "models/records";
 
 var currentRowDatatableView = null;
 var currentIdDatatableView = null;
@@ -103,14 +103,19 @@ export default class DataView extends JetView {
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
 				{ id: "title", fillspace: true, header: ["Title", { content: "textFilter" }], editor: "text", sort: "string" },
-				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text", sort:"int" },
+				{
+					id: "category", header: ["Category", { content: "textFilter" }],
+					editor: "select", sort: "string",
+					options: ["", "Adventure","Action","Western"]
+				},
+				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text", sort: "string" },
 				{
 					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.priceFormat, sort: "int"
 				},
 				{
 					id: "rating", header: [{ text: "Rating", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
-					format: webix.i18n.numberFormat, sort:"int" 
+					format: webix.i18n.numberFormat, sort: "int"
 				},
 				{
 					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
