@@ -229,6 +229,17 @@ export default class DataView extends JetView {
 						defaultShowColumns("data:datatable", ["year", "category"]);
 					}
 				},
+				{
+					view: "button", type: "icon", icon: "table", width: 37, align: "right", 
+					click: () => {
+						console.log("Export to excel...");
+						webix.toExcel($$("data:datatable"),{
+							filename: "table",
+							name: "Films",
+							rawValues:true
+						  });
+					}
+				},
 				{},
 				{
 					view: "pager", id: "mypager", css: { "text-align": "right" },
