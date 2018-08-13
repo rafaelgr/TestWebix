@@ -70,6 +70,20 @@ var rankingControl = (v) => {
 	semaphore = false;
 	return true;
 }
+var defaultHideColumns = (dtb, columns) => {
+	columns.forEach((r) => {
+		$$(dtb).hideColumn(r);
+	});
+}
+
+var defaultShowColumns = (dtb, columns) => {
+	columns.forEach((r) => {
+		$$(dtb).showColumn(r);
+	});
+}
+
+var user = "<span class='webix_icon fa-edit'></span>";
+var cog = "<span class='webix_icon fa-trash'></span>";
 
 var multiColumnControl = (obj) => {
 	var correct = true;
@@ -106,7 +120,7 @@ export default class DataView extends JetView {
 				{
 					id: "category", header: ["Category", { content: "textFilter" }],
 					editor: "select", sort: "string",
-					options: ["", "Adventure","Action","Western"]
+					options: ["", "Adventure", "Action", "Western"]
 				},
 				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text", sort: "string" },
 				{
@@ -124,9 +138,33 @@ export default class DataView extends JetView {
 				{
 					id: "date2", header: [{ text: "To Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr, sort: "string"
-				}
+				},
+				{ id: "ACTIONS", header: [{ text: "Actions", css: { "text-align": "center" } }], template: user + cog, css: { "text-align": "center" } }
 
 			],
+			onClick: {
+				"fa-edit": function (event, id, node) {
+					var dtable = this;
+					webix.confirm("Dou you want edit this row?", function (action) {
+						if (action === true) {
+							dtable.remove(id.row)
+							// here this refers to window.
+						}
+
+					});
+				},
+				"fa-trash": function (event, id, node) {
+					var dtable = this;
+					var curRow = this.data.pull[id.row];
+					webix.confirm("Are you sure, to delete " + curRow.title + "?", function (action) {
+						if (action === true) {
+							dtable.remove(id.row)
+							// here this refers to window.
+						}
+
+					});
+				}
+			},
 			editable: true,
 			editaction: "dblclick",
 			rules: {
@@ -156,9 +194,8 @@ export default class DataView extends JetView {
 							console.log("Row has changed new row :", currentRowDatatableView);
 						}
 					}
-				}
+				},
 			}
-
 		};
 		var dataToolbar = {
 			view: "toolbar",
@@ -188,7 +225,7 @@ export default class DataView extends JetView {
 				{
 					view: "button", type: "icon", icon: "eye", width: 37, align: "left",
 					click: () => {
-						$$("data:datatable").hideColumn("year");
+						defaultShowColumns("data:datatable", ["year", "category"]);
 					}
 				},
 				{},
@@ -215,6 +252,7 @@ export default class DataView extends JetView {
 			r.date = new Date(r.date);
 			data2.push(r);
 		}
+		defaultHideColumns("data:datatable", ["year", "category"]);
 		$$("data:datatable").parse(data);
 		webix.UIManager.addHotKey("Esc", function () {
 			console.log("Esc key to remove");
