@@ -185,6 +185,12 @@ export default class DataView extends JetView {
 						$$("data:datatable").add(newRow, 0);
 					}
 				},
+				{
+					view: "button", type: "icon", icon: "eye", width: 37, align: "left",
+					click: () => {
+						$$("data:datatable").hideColumn("year");
+					}
+				},
 				{},
 				{
 					view: "pager", id: "mypager", css: { "text-align": "right" },
