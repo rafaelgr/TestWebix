@@ -110,42 +110,43 @@ var multiColumnControl = (obj) => {
 
 export default class DataView extends JetView {
 	config() {
+		const trans = this.app.getService("locale")._;
 		var datatableView = {
 			view: "datatable",
 			id: "data:datatable",
 			pager: "mypager",
 			columns: [
 				{ id: "id", adjust: true, header: "ID" },
-				{ id: "title", fillspace: true, header: ["Title", { content: "textFilter" }], editor: "text", sort: "string" },
+				{ id: "title", fillspace: true, header: [trans("Title"), { content: "textFilter" }], editor: "text", sort: "string" },
 				{
-					id: "category", header: ["Category", { content: "textFilter" }],
+					id: "category", header: [trans("Category"), { content: "textFilter" }],
 					editor: "select", sort: "string",
 					options: ["", "Adventure", "Action", "Western"]
 				},
-				{ id: "year", header: ["Year", { content: "selectFilter" }], editor: "text", sort: "string" },
+				{ id: "year", header: [trans("Year"), { content: "selectFilter" }], editor: "text", sort: "string" },
 				{
-					id: "votes", header: [{ text: "Votes", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
+					id: "votes", header: [{ text: trans("Votes"), css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.priceFormat, sort: "int"
 				},
 				{
-					id: "rating", header: [{ text: "Rating", css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
+					id: "rating", header: [{ text: trans("Rating"), css: { "text-align": "right" } }, { content: "numberFilter" }], editor: "text", css: { "text-align": "right" },
 					format: webix.i18n.numberFormat, sort: "int"
 				},
 				{
-					id: "date", header: [{ text: "From Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
+					id: "date", header: [{ text: trans("From Date"), css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr, sort: "string"
 				},
 				{
-					id: "date2", header: [{ text: "To Date", css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
+					id: "date2", header: [{ text: trans("To Date"), css: { "text-align": "center" } }, { content: "textFilter" }], editor: "editdate", width: 150,
 					format: webix.i18n.dateFormatStr, sort: "string"
 				},
-				{ id: "ACTIONS", header: [{ text: "Actions", css: { "text-align": "center" } }], template: user + cog, css: { "text-align": "center" } }
+				{ id: "ACTIONS", header: [{ text: trans("Actions"), css: { "text-align": "center" } }], template: user + cog, css: { "text-align": "center" } }
 
 			],
 			onClick: {
 				"fa-edit": function (event, id, node) {
 					var dtable = this;
-					webix.confirm("Dou you want edit this row?", function (action) {
+					webix.confirm(trans("Dou you want edit this row?"), function (action) {
 						if (action === true) {
 							dtable.remove(id.row)
 							// here this refers to window.
@@ -156,7 +157,7 @@ export default class DataView extends JetView {
 				"fa-trash": function (event, id, node) {
 					var dtable = this;
 					var curRow = this.data.pull[id.row];
-					webix.confirm("Are you sure, to delete " + curRow.title + "?", function (action) {
+					webix.confirm(trans("Are you sure, to delete ") + curRow.title + "?", function (action) {
 						if (action === true) {
 							dtable.remove(id.row)
 							// here this refers to window.
