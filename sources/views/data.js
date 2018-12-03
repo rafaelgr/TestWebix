@@ -220,7 +220,13 @@ export default class DataView extends JetView {
 					view: "button", type: "icon", icon: "plus-square", width: 37, align: "left",
 					click: () => {
 						var newRow = { id: -1 };
+						defaultShowColumns("data:datatable", ["year", "category"]);
 						$$("data:datatable").add(newRow, 0);
+						$$("data:datatable").edit({
+							row: -1,
+							column: "title"
+						});
+
 					}
 				},
 				{
@@ -230,15 +236,15 @@ export default class DataView extends JetView {
 					}
 				},
 				{
-					view: "button", type: "icon", icon: "table", width: 37, align: "right", 
+					view: "button", type: "icon", icon: "table", width: 37, align: "right",
 					click: () => {
 						console.log("Export to excel...");
-						webix.toExcel($$("data:datatable"),{
+						webix.toExcel($$("data:datatable"), {
 							filename: "table",
 							name: "Films",
-							rawValues:true,
-							ignore: {"actions": true}
-						  });
+							rawValues: true,
+							ignore: { "actions": true }
+						});
 					}
 				},
 				{},
